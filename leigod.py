@@ -49,8 +49,10 @@ def login(data):
     if req.status_code==200:
         account_token=eval(req.text)['data']['login_info']['account_token']
         data['account_token']=account_token
+        return True
     else:
         print(req.text)
+        return False
 
 def pause(data):
     url = base_url + "/api/user/pause"
@@ -73,10 +75,12 @@ if ping_gateway(gateway_ip):
         config.write(configfile)
     print("--检测到当前电脑已开启--")
 elif power_status=='on':
-    login(data)
-    if pause(data):
-        config.set('pc', 'status', 'off')
-        with open('config.ini', 'w') as configfile:
-            config.write(configfile)
-        print("--检测到电脑关机，已暂停雷神加速器")
+    login=login(data)
+    if login:
+        pause=pause(data)
+        if pause:
+            config.set('pc', 'status', 'off')
+            with open('config.ini', 'w') as configfile:
+                config.write(configfile)
+            print("--检测到电脑关机，已暂停雷神加速器")
 
