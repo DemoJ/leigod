@@ -21,28 +21,6 @@ def hash_password(password):
     hashed_password = md5_hash.hexdigest()
     return hashed_password
 
-# 创建 ConfigParser 对象
-config = configparser.ConfigParser()
-# 读取配置文件
-config.read("/ql/data/scripts/leigod/config.ini")
-
-username = config.get("login","username")
-password = hash_password(config.get("login","password"))
-
-
-base_url = "https://webapi.leigod.com"
-
-data = {
-    "account_token": None,
-    "country_code": 86,
-    "lang": "zh_CN",
-    "password": "{}".format(password),
-    "region_code": 1,
-    "src_channel": "guanwang",
-    "user_type": "0",
-    "username": "{}".format(username),
-}
-
 def login(data):
     url = base_url + "/api/auth/login"
     req = requests.post(url, json=data)
@@ -64,6 +42,27 @@ def pause(data):
         print(req.text)
         return False
 
+# 创建 ConfigParser 对象
+config = configparser.ConfigParser()
+# 读取配置文件
+config.read("/ql/data/scripts/leigod/config.ini")
+
+username = config.get("login","username")
+password = hash_password(config.get("login","password"))
+
+
+base_url = "https://webapi.leigod.com"
+
+data = {
+    "account_token": None,
+    "country_code": 86,
+    "lang": "zh_CN",
+    "password": "{}".format(password),
+    "region_code": 1,
+    "src_channel": "guanwang",
+    "user_type": "0",
+    "username": "{}".format(username),
+}
 # 指定网关的 IP 地址
 gateway_ip = config.get('pc','gateway_ip')
 power_status=config.get('pc','status')
