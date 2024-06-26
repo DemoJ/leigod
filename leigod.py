@@ -45,7 +45,7 @@ def pause(data):
 # 创建 ConfigParser 对象
 config = configparser.ConfigParser()
 # 读取配置文件
-config.read("/ql/data/scripts/leigod/config.ini")
+config.read("config.ini")
 
 username = config.get("login","username")
 password = hash_password(config.get("login","password"))
@@ -70,7 +70,7 @@ power_status=config.get('pc','status')
 if ping_gateway(gateway_ip):
     # 修改配置项的值
     config.set('pc', 'status', 'on')
-    with open('/ql/data/scripts/leigod/config.ini', 'w') as configfile:
+    with open('config.ini', 'w') as configfile:
         config.write(configfile)
     print("--检测到当前电脑已开启--")
 elif power_status=='on':
@@ -79,6 +79,6 @@ elif power_status=='on':
         pause=pause(data)
         if pause:
             config.set('pc', 'status', 'off')
-            with open('/ql/data/scripts/leigod/config.ini', 'w') as configfile:
+            with open('config.ini', 'w') as configfile:
                 config.write(configfile)
             print("--检测到电脑关机，已暂停雷神加速器")
