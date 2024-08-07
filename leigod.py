@@ -81,4 +81,4 @@ elif power_status=='on':
             config.set('pc', 'status', 'off')
             with open('config.ini', 'w') as configfile:
                 config.write(configfile)
-            print("--检测到电脑关机，已暂停雷神加速器")
+            print("--检测到电脑关机，已暂停雷神加速器--")
