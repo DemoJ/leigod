@@ -2,11 +2,7 @@ import requests
 import configparser
 import hashlib
 import subprocess
-import sys
 import time
-
-sys.path.append("/ql/data/scripts/my_rss")
-
 
 def ping_gateway(gateway):
     try:
